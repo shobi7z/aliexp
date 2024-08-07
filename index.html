@@ -15,45 +15,45 @@
 
         .container {
             background-color: #ffffff;
-            padding: 15px;
+            padding: 10px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 300px;
+            width: 70%;
+            max-width: 250px;
             text-align: center;
         }
 
         h2 {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: #333;
-            font-size: 18px;
+            font-size: 14px;
         }
 
         label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: #555;
-            font-size: 12px;
+            font-size: 10px;
             text-align: left;
         }
 
         input[type="number"] {
-            width: calc(100% - 20px);
-            padding: 6px;
-            margin-bottom: 10px;
+            width: calc(100% - 16px);
+            padding: 4px;
+            margin-bottom: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 12px;
+            font-size: 10px;
         }
 
         button {
             background-color: #007BFF;
             color: white;
-            padding: 8px 16px;
+            padding: 6px 12px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 10px;
             transition: background-color 0.3s, transform 0.3s;
         }
 
@@ -63,44 +63,44 @@
         }
 
         p {
-            font-size: 14px;
-            margin: 8px 0;
+            font-size: 12px;
+            margin: 6px 0;
             color: #333;
         }
 
         .result {
             background-color: #f9f9f9;
-            padding: 8px;
+            padding: 6px;
             border-radius: 10px;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         @media (max-width: 600px) {
             h2 {
-                font-size: 16px;
-            }
-
-            label, input[type="number"], button {
-                font-size: 10px;
-            }
-
-            button {
-                padding: 6px 12px;
-            }
-
-            p {
                 font-size: 12px;
             }
 
+            label, input[type="number"], button {
+                font-size: 8px;
+            }
+
+            button {
+                padding: 4px 8px;
+            }
+
+            p {
+                font-size: 10px;
+            }
+
             .result {
-                padding: 6px;
+                padding: 4px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="https://cdn-icons-png.flaticon.com/128/781/781760.png" alt="Shipping Icon" width="80" height="80">
+        <img src="https://cdn-icons-png.flaticon.com/128/781/781760.png" alt="Shipping Icon" width="50" height="50">
         <h2>حاسبة الشحن</h2>
         <label for="price">سعر المنتج ($):</label>
         <input type="number" id="price" step="0.01"><br><br>
