@@ -5,7 +5,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: rgb(255, 255, 255);
+            background-color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -15,45 +15,45 @@
 
         .container {
             background-color: #ffffff;
-            padding: 10px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 70%;
-            max-width: 250px;
+            max-width: 350px;
             text-align: center;
         }
 
         h2 {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: #333;
-            font-size: 14px;
+            font-size: 18px;
         }
 
         label {
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
             color: #555;
-            font-size: 10px;
+            font-size: 14px;
             text-align: left;
         }
 
         input[type="number"] {
-            width: calc(100% - 16px);
-            padding: 4px;
-            margin-bottom: 8px;
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 10px;
+            font-size: 16px;
         }
 
         button {
             background-color: #007BFF;
             color: white;
-            padding: 6px 12px;
+            padding: 12px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 10px;
+            font-size: 16px;
             transition: background-color 0.3s, transform 0.3s;
         }
 
@@ -63,37 +63,42 @@
         }
 
         p {
-            font-size: 12px;
-            margin: 6px 0;
+            font-size: 14px;
+            margin: 8px 0;
             color: #333;
         }
 
         .result {
             background-color: #f9f9f9;
-            padding: 6px;
+            padding: 10px;
             border-radius: 10px;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         @media (max-width: 600px) {
             h2 {
+                font-size: 14px;
+            }
+
+            label {
                 font-size: 12px;
             }
 
-            label, input[type="number"], button {
-                font-size: 8px;
+            input[type="number"], button {
+                font-size: 14px;
+                padding: 8px;
             }
 
             button {
-                padding: 4px 8px;
+                padding: 8px 16px;
             }
 
             p {
-                font-size: 10px;
+                font-size: 12px;
             }
 
             .result {
-                padding: 4px;
+                padding: 6px;
             }
         }
     </style>
