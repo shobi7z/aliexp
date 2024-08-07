@@ -15,23 +15,23 @@
 
         .container {
             background-color: #ffffff;
-            padding: 20px;
+            padding: 15px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 70%;
-            max-width: 350px;
+            width: 60%;
+            max-width: 300px;
             text-align: center;
         }
 
         h2 {
             margin-bottom: 10px;
             color: #333;
-            font-size: 18px;
+            font-size: 16px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             color: #555;
             font-size: 14px;
             text-align: left;
@@ -39,8 +39,8 @@
 
         input[type="number"] {
             width: calc(100% - 20px);
-            padding: 12px;
-            margin-bottom: 15px;
+            padding: 10px;
+            margin-bottom: 10px; /* Reduced margin */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
@@ -49,7 +49,7 @@
         button {
             background-color: #007BFF;
             color: white;
-            padding: 12px 20px;
+            padding: 10px 16px; /* Adjusted padding */
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -64,13 +64,13 @@
 
         p {
             font-size: 14px;
-            margin: 8px 0;
+            margin: 6px 0;
             color: #333;
         }
 
         .result {
             background-color: #f9f9f9;
-            padding: 10px;
+            padding: 8px; /* Adjusted padding */
             border-radius: 10px;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
         }
@@ -90,7 +90,7 @@
             }
 
             button {
-                padding: 8px 16px;
+                padding: 8px 14px; /* Adjusted padding */
             }
 
             p {
@@ -108,13 +108,13 @@
         <img src="https://cdn-icons-png.flaticon.com/128/781/781760.png" alt="Shipping Icon" width="50" height="50">
         <h2>حاسبة الشحن</h2>
         <label for="price">سعر المنتج ($):</label>
-        <input type="number" id="price" step="0.01"><br><br>
+        <input type="number" id="price" step="0.01"><br>
         <label for="length">الطول (سم):</label>
-        <input type="number" id="length" step="0.01"><br><br>
+        <input type="number" id="length" step="0.01"><br>
         <label for="width">العرض (سم):</label>
-        <input type="number" id="width" step="0.01"><br><br>
+        <input type="number" id="width" step="0.01"><br>
         <label for="height">الارتفاع (سم):</label>
-        <input type="number" id="height" step="0.01"><br><br>
+        <input type="number" id="height" step="0.01"><br>
         <button onclick="calculateShipping()">احسب</button>
         <div class="result">
             <h3>تكلفة الشحن ($):</h3>
