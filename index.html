@@ -7,92 +7,90 @@
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: #f0f4f8;
+            background-color: #f7f9fc;
+            color: #333;
+            direction: rtl;
+            text-align: center;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
         .container {
-            background-color: #ffffff;
+            background-color: #fff;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 100%;
         }
-        h2 {
-            color: #333;
+        h1 {
+            color: #2c3e50;
             margin-bottom: 20px;
             font-size: 24px;
         }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #34495e;
+        }
         input {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            font-size: 16px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #ecf0f1;
             border-radius: 10px;
-            border: 1px solid #ccc;
+            font-size: 16px;
+            box-sizing: border-box;
             transition: all 0.3s ease;
         }
         input:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
         }
         button {
-            background-color: #007bff;
-            color: white;
-            padding: 12px 30px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 20px;
             border: none;
             border-radius: 10px;
-            cursor: pointer;
             font-size: 18px;
+            cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-top: 20px;
-            width: 100%;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #2980b9;
         }
-        .result {
-            margin-top: 30px;
+        h2 {
+            margin-top: 20px;
             font-size: 20px;
-            font-weight: bold;
-            color: #007bff;
+            color: #27ae60;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>حساب تكلفة الشحن</h2>
-        <input type="number" id="length" placeholder="الطول (سم)" min="0" step="0.01">
-        <input type="number" id="width" placeholder="العرض (سم)" min="0" step="0.01">
-        <input type="number" id="height" placeholder="الارتفاع (سم)" min="0" step="0.01">
-        <button onclick="calculateShipping()">احسب تكلفة الشحن</button>
-        <div class="result" id="result"></div>
+        <h1>حساب تكلفة الشحن</h1>
+        <label for="weight">أدخل الوزن بالكيلوغرام:</label>
+        <input type="number" id="weight" step="0.01" placeholder="0.0" min="0">
+        <button onclick="calculateShipping()">احسب التكلفة</button>
+        <h2 id="result"></h2>
     </div>
 
     <script>
         function calculateShipping() {
-            const length = parseFloat(document.getElementById('length').value);
-            const width = parseFloat(document.getElementById('width').value);
-            const height = parseFloat(document.getElementById('height').value);
-
-            if (isNaN(length) || isNaN(width) || isNaN(height) || length <= 0 || width <= 0 || height <= 0) {
-                document.getElementById('result').innerText = 'يرجى إدخال قيم صحيحة للطول والعرض والارتفاع.';
+            var weight = parseFloat(document.getElementById('weight').value);
+            if (isNaN(weight) || weight <= 0) {
+                document.getElementById('result').textContent = "يرجى إدخال وزن صالح.";
                 return;
             }
 
-            const volume = (length * width * height) / 1000000; // Convert mm³ to m³
-            let shippingCost = volume * 400;
-
-            if (shippingCost < 0.5) {
-                shippingCost = 0.5;
-            }
-
-            document.getElementById('result').innerText = 'تكلفة الشحن: $' + shippingCost.toFixed(2);
+            var costInDollars = (weight * 10).toFixed(2); // 0.1 kg = $1, so 1 kg = $10
+            document.getElementById('result').textContent = "تكلفة الشحن: $" + costInDollars;
         }
     </script>
 </body>
