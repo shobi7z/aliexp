@@ -89,7 +89,13 @@
                 return;
             }
 
-            var costInDollars = (weight * 10).toFixed(2); // 0.1 kg = $1, so 1 kg = $10
+            var costInDollars;
+            if (weight < 1) {
+                costInDollars = 10.00; // إذا كان الوزن أقل من 1 كيلوغرام، يكون السعر 10 دولارات
+            } else {
+                costInDollars = (weight * 10).toFixed(2); // 1 كيلوغرام وما فوق: 10 دولارات لكل كيلوغرام
+            }
+
             document.getElementById('result').textContent = "تكلفة الشحن: $" + costInDollars;
         }
     </script>
