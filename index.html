@@ -1,161 +1,160 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة تكلفة الشحن</title>
+    <title>محول العملة - يوان صيني إلى دينار عراقي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap');
-
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
         body {
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            background-color: #ffffff;
-            padding: 40px 60px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
-
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        label {
-            font-size: 18px;
-            color: #555;
-        }
-
-        input[type="number"] {
-            width: 100%;
-            padding: 12px 15px;
-            font-size: 18px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            transition: border-color 0.3s;
-        }
-
-        input[type="number"]:focus {
-            border-color: #a1c4fd;
-            outline: none;
-        }
-
-        .result {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            background-color: #f0f0f0;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .result span {
-            display: block;
-            margin-top: 5px;
-        }
-
-        .social-media {
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .social-media a {
-            text-decoration: none;
-        }
-
-        .social-media-container {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            background-color: #ffffff;
-        }
-
-        .social-media img {
-            width: 40px;
-            height: 40px;
-            transition: opacity 0.3s;
-        }
-
-        .social-media img:hover {
-            opacity: 0.7;
-        }
-
-        .social-media .username {
-            font-size: 16px;
-            color: #555;
-            margin-left: 10px;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h2>حاسبة تكلفة الشحن</h2>
-        <label for="weight">أدخل الوزن بالكيلوغرام:</label>
-        <input type="number" id="weight" min="0" step="0.01" oninput="calculateCost()">
-        <p class="result" id="result">
-            تكلفة الشحن: $0.00
-            <span id="cost-iqd">تكلفة الشحن بالدينار العراقي: 0 د.ع</span>
-        </p>
-        <div class="social-media">
-            <div class="social-media-container">
-                <a href="https://www.instagram.com/vndr1q/?hl=ar" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
-                </a>
-                <span class="username">@vndr1q</span>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-4">
+    <div class="max-w-md mx-auto mt-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">محول العملة</h1>
+            <p class="text-gray-600">يوان صيني إلى دينار عراقي</p>
+        </div>
+
+        <!-- Main Converter Card -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
+            <!-- Input Section -->
+            <div class="mb-6">
+                <label for="yenInput" class="block text-sm font-semibold text-gray-700 mb-2">
+                    السعر باليوان الصيني
+                </label>
+                <div class="relative">
+                    <input 
+                        type="number" 
+                        id="yenInput" 
+                        placeholder="أدخل المبلغ"
+                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none text-lg text-center"
+                        oninput="convertCurrency()"
+                    >
+                    <span class="absolute left-3 top-3 text-gray-500 font-medium">¥</span>
+                </div>
+            </div>
+
+            <!-- Conversion Result -->
+            <div class="mb-6">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    المبلغ بالدينار العراقي
+                </label>
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                    <span id="dinarResult" class="text-2xl font-bold text-green-600">0</span>
+                    <span class="text-gray-600 mr-2">دينار عراقي</span>
+                </div>
+            </div>
+
+            <!-- Exchange Rate Info -->
+            <div class="bg-blue-50 rounded-lg p-3 mb-6">
+                <p class="text-sm text-blue-800 text-center">
+                    <span class="font-semibold">سعر الصرف:</span> 1 يوان صيني = 300 دينار عراقي
+                </p>
+            </div>
+        </div>
+
+        <!-- Shipping Cost Card -->
+        <div class="bg-white rounded-2xl shadow-xl p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">تكلفة الشحن</h2>
+            
+            <div id="shippingInfo" class="text-center">
+                <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                    <span id="shippingCost" class="text-2xl font-bold text-orange-600">0</span>
+                    <span class="text-gray-600 mr-2">دينار عراقي</span>
+                </div>
+                
+                <div id="shippingRule" class="text-sm text-gray-600 bg-orange-50 rounded-lg p-3">
+                    أدخل المبلغ لحساب تكلفة الشحن
+                </div>
+            </div>
+
+            <!-- Total Cost -->
+            <div class="mt-6 pt-4 border-t-2 border-gray-100">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="font-semibold text-gray-700">المبلغ:</span>
+                    <span id="subtotal" class="text-gray-800">0 دينار</span>
+                </div>
+                <div class="flex justify-between items-center mb-3">
+                    <span class="font-semibold text-gray-700">الشحن:</span>
+                    <span id="shippingDisplay" class="text-gray-800">0 دينار</span>
+                </div>
+                <div class="flex justify-between items-center text-lg font-bold border-t pt-2">
+                    <span class="text-gray-800">المجموع الكلي:</span>
+                    <span id="totalCost" class="text-blue-600">0 دينار عراقي</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shipping Rules Info -->
+        <div class="mt-6 bg-white rounded-2xl shadow-xl p-6">
+            <h3 class="text-lg font-bold text-gray-800 mb-3 text-center">قواعد الشحن</h3>
+            <div class="space-y-2 text-sm">
+                <div class="flex items-center justify-between p-2 bg-red-50 rounded-lg">
+                    <span class="text-red-800">أقل من 50 يوان</span>
+                    <span class="font-semibold text-red-600">2000 دينار شحن</span>
+                </div>
+                <div class="flex items-center justify-between p-2 bg-green-50 rounded-lg">
+                    <span class="text-green-800">50 يوان أو أكثر</span>
+                    <span class="font-semibold text-green-600">شحن مجاني</span>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        function calculateCost() {
-            var weight = parseFloat(document.getElementById('weight').value);
-            var costPerKg = 7;
-            var exchangeRate = 1390;
-            var cost = 0;
-            var costIQD = 0;
-
-            if (weight > 0) {
-                var roundedWeight = Math.ceil(weight);  // تقريب الوزن إلى أقرب كيلوغرام أعلى
-                cost = costPerKg * roundedWeight;
-                costIQD = cost * exchangeRate;
-                costIQD = roundToNearest500(costIQD);  // تقريب لأقرب نصف أو عدد صحيح
-            }
-
-            document.getElementById('result').innerHTML = 'تكلفة الشحن: $' + cost.toFixed(2) +
-                '<span id="cost-iqd">تكلفة الشحن بالدينار العراقي: ' + costIQD.toLocaleString('ar-IQ') + ' د.ع</span>';
-        }
-
-        function roundToNearest500(num) {
-            if (num <= 0) return 0;
-            var remainder = num % 500;
-            if (remainder === 0) return num;
-            if (remainder < 500) {
-                return num - remainder + 500;
+        function convertCurrency() {
+            const yenInput = document.getElementById('yenInput');
+            const dinarResult = document.getElementById('dinarResult');
+            const shippingCost = document.getElementById('shippingCost');
+            const shippingRule = document.getElementById('shippingRule');
+            const subtotal = document.getElementById('subtotal');
+            const shippingDisplay = document.getElementById('shippingDisplay');
+            const totalCost = document.getElementById('totalCost');
+            
+            const yenAmount = parseFloat(yenInput.value) || 0;
+            const exchangeRate = 300; // 1 CNY = 300 IQD
+            
+            // Convert to Iraqi Dinars
+            const dinarAmount = yenAmount * exchangeRate;
+            dinarResult.textContent = dinarAmount.toLocaleString('ar-IQ');
+            
+            // Calculate shipping cost
+            let shipping = 0;
+            let shippingText = '';
+            
+            if (yenAmount === 0) {
+                shippingText = 'أدخل المبلغ لحساب تكلفة الشحن';
+                shippingCost.textContent = '0';
+                shippingCost.className = 'text-2xl font-bold text-gray-400';
+            } else if (yenAmount < 50) {
+                shipping = 2000;
+                shippingText = 'تكلفة الشحن: 2000 دينار (أقل من 50 يوان)';
+                shippingCost.textContent = shipping.toLocaleString('ar-IQ');
+                shippingCost.className = 'text-2xl font-bold text-red-600';
             } else {
-                return num - remainder + 1000;
+                shipping = 0;
+                shippingText = 'شحن مجاني! (50 يوان أو أكثر)';
+                shippingCost.textContent = 'مجاني';
+                shippingCost.className = 'text-2xl font-bold text-green-600';
             }
+            
+            shippingRule.textContent = shippingText;
+            
+            // Update totals
+            subtotal.textContent = dinarAmount.toLocaleString('ar-IQ') + ' دينار';
+            shippingDisplay.textContent = shipping === 0 ? 'مجاني' : shipping.toLocaleString('ar-IQ') + ' دينار';
+            
+            const total = dinarAmount + shipping;
+            totalCost.textContent = total.toLocaleString('ar-IQ') + ' دينار عراقي';
         }
+        
+        // Initialize on page load
+        convertCurrency();
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'964657f2b45add2f',t:'MTc1MzM5MDc4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
