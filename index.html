@@ -3,158 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محول العملة - يوان صيني إلى دينار عراقي</title>
+    <title>فندر - محول العملات</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+        
         body {
             font-family: 'Cairo', sans-serif;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3);
+        }
+        
+        .currency-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+        
+        .currency-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .floating-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pulse-ring {
+            animation: pulse-ring 2s infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.3); opacity: 0; }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, #60a5fa, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .convert-arrow {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .result-glow {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+        }
+        
+        .quick-btn {
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .quick-btn:hover {
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.4), rgba(139, 92, 246, 0.4));
+            transform: scale(1.05);
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-4">
-    <div class="max-w-md mx-auto mt-8">
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">محول العملة</h1>
-            <p class="text-gray-600">يوان صيني إلى دينار عراقي</p>
+<body class="min-h-screen text-white">
+    <!-- Animated Stars Background -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Header Section -->
+    <header class="text-center py-12">
+        <div class="container mx-auto px-4">
+            <div class="floating-animation">
+                <h1 class="text-7xl font-bold gradient-text mb-4">فندر</h1>
+                <div class="pulse-ring absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border-2 border-blue-400 rounded-full opacity-30"></div>
+            </div>
+            <p class="text-2xl text-blue-200 mb-6">محول العملات الذكي</p>
+            <div class="w-32 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full"></div>
         </div>
+    </header>
 
-        <!-- Main Converter Card -->
-        <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
-            <!-- Input Section -->
-            <div class="mb-6">
-                <label for="yenInput" class="block text-sm font-semibold text-gray-700 mb-2">
-                    السعر باليوان الصيني
-                </label>
-                <div class="relative">
-                    <input 
-                        type="number" 
-                        id="yenInput" 
-                        placeholder="أدخل المبلغ"
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none text-lg text-center"
-                        oninput="convertCurrency()"
-                    >
-                    <span class="absolute left-3 top-3 text-gray-500 font-medium">¥</span>
+    <!-- Main Converter Section -->
+    <main class="container mx-auto px-4 max-w-md">
+        <!-- SAR Input Card -->
+        <div class="currency-card rounded-3xl p-8 mb-6">
+            <div class="text-center">
+                <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center shadow-lg overflow-hidden">
+                    <img src="https://cdn-icons-png.flaticon.com/128/5111/5111777.png" alt="علم السعودية" class="w-20 h-20 object-cover rounded-full">
                 </div>
-            </div>
-
-            <!-- Conversion Result -->
-            <div class="mb-6">
-                <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    المبلغ بالدينار العراقي
-                </label>
-                <div class="bg-gray-50 rounded-lg p-4 text-center">
-                    <span id="dinarResult" class="text-2xl font-bold text-green-600">0</span>
-                    <span class="text-gray-600 mr-2">دينار عراقي</span>
-                </div>
-            </div>
-
-            <!-- Exchange Rate Info -->
-            <div class="bg-blue-50 rounded-lg p-3 mb-6">
-                <p class="text-sm text-blue-800 text-center">
-                    <span class="font-semibold">سعر الصرف:</span> 1 يوان صيني = 300 دينار عراقي
-                </p>
-            </div>
-        </div>
-
-        <!-- Shipping Cost Card -->
-        <div class="bg-white rounded-2xl shadow-xl p-6">
-            <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">تكلفة الشحن</h2>
-            
-            <div id="shippingInfo" class="text-center">
-                <div class="bg-gray-50 rounded-lg p-4 mb-4">
-                    <span id="shippingCost" class="text-2xl font-bold text-orange-600">0</span>
-                    <span class="text-gray-600 mr-2">دينار عراقي</span>
-                </div>
+                <h2 class="text-2xl font-bold mb-2">الريال السعودي</h2>
+                <p class="text-blue-200 mb-6">SAR - المملكة العربية السعودية</p>
                 
-                <div id="shippingRule" class="text-sm text-gray-600 bg-orange-50 rounded-lg p-3">
-                    أدخل المبلغ لحساب تكلفة الشحن
-                </div>
+                <input 
+                    type="number" 
+                    id="sarAmount" 
+                    placeholder="0.00"
+                    class="w-full p-6 text-4xl text-center bg-white bg-opacity-10 border-2 border-white border-opacity-20 rounded-2xl focus:border-blue-400 focus:outline-none focus:bg-opacity-20 transition-all text-white placeholder-gray-300"
+                    min="0"
+                    step="0.01"
+                >
             </div>
+        </div>
 
-            <!-- Total Cost -->
-            <div class="mt-6 pt-4 border-t-2 border-gray-100">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="font-semibold text-gray-700">المبلغ:</span>
-                    <span id="subtotal" class="text-gray-800">0 دينار</span>
+        <!-- Convert Arrow -->
+        <div class="text-center mb-6">
+            <div class="convert-arrow w-16 h-16 mx-auto rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+                ↓
+            </div>
+        </div>
+
+        <!-- IQD Result Card -->
+        <div class="currency-card rounded-3xl p-8 mb-8">
+            <div class="text-center">
+                <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center shadow-lg overflow-hidden">
+                    <img src="https://cdn-icons-png.flaticon.com/128/13980/13980702.png" alt="علم العراق" class="w-20 h-20 object-cover rounded-full">
                 </div>
-                <div class="flex justify-between items-center mb-3">
-                    <span class="font-semibold text-gray-700">الشحن:</span>
-                    <span id="shippingDisplay" class="text-gray-800">0 دينار</span>
-                </div>
-                <div class="flex justify-between items-center text-lg font-bold border-t pt-2">
-                    <span class="text-gray-800">المجموع الكلي:</span>
-                    <span id="totalCost" class="text-blue-600">0 دينار عراقي</span>
+                <h2 class="text-2xl font-bold mb-2">الدينار العراقي</h2>
+                <p class="text-blue-200 mb-6">IQD - جمهورية العراق</p>
+                
+                <div 
+                    id="iqdResult" 
+                    class="w-full p-6 text-4xl text-center bg-white bg-opacity-10 border-2 border-white border-opacity-20 rounded-2xl font-bold min-h-[80px] flex items-center justify-center"
+                >
+                    0.00
                 </div>
             </div>
         </div>
 
-        <!-- Shipping Rules Info -->
-        <div class="mt-6 bg-white rounded-2xl shadow-xl p-6">
-            <h3 class="text-lg font-bold text-gray-800 mb-3 text-center">قواعد الشحن</h3>
-            <div class="space-y-2 text-sm">
-                <div class="flex items-center justify-between p-2 bg-red-50 rounded-lg">
-                    <span class="text-red-800">أقل من 50 يوان</span>
-                    <span class="font-semibold text-red-600">2000 دينار شحن</span>
-                </div>
-                <div class="flex items-center justify-between p-2 bg-green-50 rounded-lg">
-                    <span class="text-green-800">50 يوان أو أكثر</span>
-                    <span class="font-semibold text-green-600">شحن مجاني</span>
-                </div>
+        <!-- Exchange Rate Info -->
+        <div class="glass-card rounded-2xl p-6 mb-8 text-center">
+            <h3 class="text-lg font-semibold mb-3">سعر الصرف</h3>
+            <div class="text-3xl font-bold gradient-text mb-2">1 ﷼ = 400 د.ع</div>
+            <p class="text-sm text-blue-200">آخر تحديث: الآن</p>
+        </div>
+
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-12">
+        <div class="container mx-auto px-4">
+            <div class="glass-card rounded-2xl p-6 max-w-md mx-auto">
+                <h4 class="text-xl font-bold gradient-text mb-2">فندر</h4>
+                <p class="text-blue-200">محول العملات الموثوق والسريع</p>
             </div>
         </div>
-    </div>
+    </footer>
 
     <script>
-        function convertCurrency() {
-            const yenInput = document.getElementById('yenInput');
-            const dinarResult = document.getElementById('dinarResult');
-            const shippingCost = document.getElementById('shippingCost');
-            const shippingRule = document.getElementById('shippingRule');
-            const subtotal = document.getElementById('subtotal');
-            const shippingDisplay = document.getElementById('shippingDisplay');
-            const totalCost = document.getElementById('totalCost');
-            
-            const yenAmount = parseFloat(yenInput.value) || 0;
-            const exchangeRate = 300; // 1 CNY = 300 IQD
-            
-            // Convert to Iraqi Dinars
-            const dinarAmount = yenAmount * exchangeRate;
-            dinarResult.textContent = dinarAmount.toLocaleString('ar-IQ');
-            
-            // Calculate shipping cost
-            let shipping = 0;
-            let shippingText = '';
-            
-            if (yenAmount === 0) {
-                shippingText = 'أدخل المبلغ لحساب تكلفة الشحن';
-                shippingCost.textContent = '0';
-                shippingCost.className = 'text-2xl font-bold text-gray-400';
-            } else if (yenAmount < 50) {
-                shipping = 2000;
-                shippingText = 'تكلفة الشحن: 2000 دينار (أقل من 50 يوان)';
-                shippingCost.textContent = shipping.toLocaleString('ar-IQ');
-                shippingCost.className = 'text-2xl font-bold text-red-600';
-            } else {
-                shipping = 0;
-                shippingText = 'شحن مجاني! (50 يوان أو أكثر)';
-                shippingCost.textContent = 'مجاني';
-                shippingCost.className = 'text-2xl font-bold text-green-600';
-            }
-            
-            shippingRule.textContent = shippingText;
-            
-            // Update totals
-            subtotal.textContent = dinarAmount.toLocaleString('ar-IQ') + ' دينار';
-            shippingDisplay.textContent = shipping === 0 ? 'مجاني' : shipping.toLocaleString('ar-IQ') + ' دينار';
-            
-            const total = dinarAmount + shipping;
-            totalCost.textContent = total.toLocaleString('ar-IQ') + ' دينار عراقي';
-        }
+        const EXCHANGE_RATE = 400;
         
-        // Initialize on page load
+        const sarInput = document.getElementById('sarAmount');
+        const iqdResult = document.getElementById('iqdResult');
+
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function formatNumber(num) {
+            return new Intl.NumberFormat('ar-SA', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(num);
+        }
+
+        function convertCurrency() {
+            const sarAmount = parseFloat(sarInput.value) || 0;
+            const iqdAmount = sarAmount * EXCHANGE_RATE;
+            
+            iqdResult.textContent = formatNumber(iqdAmount);
+        }
+
+        // Event listeners
+        sarInput.addEventListener('input', convertCurrency);
+
+        sarInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                convertCurrency();
+            }
+        });
+
+        // Initialize
+        createStars();
         convertCurrency();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'964657f2b45add2f',t:'MTc1MzM5MDc4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9657dc9170e92ba0',t:'MTc1MzU3NDQ3OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
